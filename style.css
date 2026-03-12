@@ -1,0 +1,209 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.userInfo{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+margin-bottom:20px;
+color:black;
+}
+
+#userName{
+font-size:22px;
+font-weight:bold;
+}
+
+#userEmail{
+width:100%;
+margin-top:5px;
+}
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:flex-start;   /* change this */
+padding-top:40px;
+background: linear-gradient(100deg,#f39aff,#512aac);
+}
+
+.contain{
+width:900px;
+max-width:95%;
+}
+
+.contain h2,h3{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label{
+    font-weight: bold;
+}
+input{
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+input:focus{
+    outline: none;
+    border-color: darkcyan;
+}
+
+button{
+padding: 10px;
+background-color: darkorchid;
+color: white;
+border: none;
+border-radius: 5px;
+font-size: 16px;
+cursor: pointer;
+margin-top: 15px;
+font-weight: bold;
+width:auto;   /* change this */
+}
+
+button:hover{
+    background-color:rgb(255, 0, 242);
+    color: white;
+}
+p{
+    text-align: center;
+    margin-top: 15px;
+font-weight: bold;
+}
+a{
+    color: darkmagenta;
+    text-decoration: none;
+    
+}
+
+.lists{
+display:flex;
+justify-content:space-between;
+gap:40px;
+margin-top:20px;
+}
+
+
+.topBar{
+width:900px;
+max-width:95%;
+margin:auto;
+}
+
+.transactionContainer{
+display:flex;
+gap:40px;
+justify-content:center;
+align-items:flex-start;
+}
+
+
+ul{
+list-style:none;
+padding:0;
+}
+
+li{
+background: white;
+border: 2px solid rgb(218, 214, 214);
+/* box-shadow: 0 2px 6px; */
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+padding:15px;
+margin-bottom:10px;
+border-radius:10px;
+display:flex;
+flex-direction:column;
+align-items:center;   /* center everything */
+text-align:center;
+}
+
+li p{
+margin:2px 0;
+}
+
+li button{
+background:#ff4d4d;
+color:white;
+border:none;
+padding:5px 10px;
+border-radius:5px;
+cursor:pointer;
+margin-top:5px;
+}
+
+li button:hover{
+background:#ff0000;
+}/* Make buttons full width */
+
+.topBar button {
+    width: auto;       /* full width */
+    padding: 10px 15px;     /* more clickable area */
+    margin: 5px 0;     /* spacing between buttons */
+    border: none;
+    border-radius: 5px;
+    background: #8e44ad;   /* purple button color */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.topBar button:hover {
+    background: #732d91;   /* darker purple on hover */
+}
+
+/* Optional: style inputs same width as buttons */
+.topBar input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.incomeSection,
+.expenseSection{
+flex:1;
+max-height:300px;
+overflow-y:auto;
+padding:0px;
+border-radius:10px;
+background:white;
+position:relative;
+}
+
+.incomeSection h3,
+.expenseSection h3{
+position: sticky;
+top: 0;
+background: white;
+margin:0;
+padding:10px;
+width:100%;
+z-index:100;
+border-bottom:1px solid #ddd;
+}
+
+.buttonRow{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:20px;
+}
+
+.buttonRow button{
+width:auto;
+padding:12px 25px;
+}
+

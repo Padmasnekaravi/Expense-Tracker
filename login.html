@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contain">
+<form id="login">
+    <h2>LOGIN</h2>
+    <label>Name</label><br>
+    <input type="text" id="name"  required>
+    <br><br>
+    <label>Email</label><br>
+    <input required type="email" id="email">
+    <br><br>
+    <label>Password</label><br>
+    <input required type="password" id="password">
+<br><br>
+<button>LOGIN</button>
+<script>
+    let users=JSON.parse(localStorage.getItem("users"))||[]
+    document.getElementById("login").addEventListener("submit",function(e){
+        e.preventDefault();
+        let name=document.getElementById("name").value;
+        let email=document.getElementById("email").value;
+        let password=document.getElementById("password").value;
+        let user =users.find(u=>u.email===email&& u.password===password)
+if(user){
+    alert("Login successfully")
+
+localStorage.setItem("currentUser",JSON.stringify(user))
+window.location.href = "dashboard.html"
+    }
+    else{
+alert("Invalid Email or Password")
+    }
+    })
+    console.log(users);
+    
+</script>
+</form>
+</div>
+</body>
+</html>

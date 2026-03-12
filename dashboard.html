@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="contain">
+
+<div class="topBar">
+
+<div class="userInfo">
+    <h3 id="userName"></h3>
+    <h3><p id="userEmail"></p></h3>
+    <h3>Total Balance : ₹ <span id="balance">0</span></h3>
+</div>
+<!-- <h3>Total Balance : ₹ <span id="balance">0</span></h3> -->
+
+<input type="date" id="date">
+
+<input type="text" id="title" placeholder="Expense Name (Food / Travel / Shopping)">
+
+<input type="number" id="amount" placeholder="Enter Amount">
+
+<div class="buttonRow">
+<button onclick="addIncome()">Add Income</button>
+<button onclick="addExpense()">Add Expense</button>
+<button onclick="logout()">Logout</button>
+</div>
+<div class="transactionContainer">
+
+<div class="incomeSection">
+<h3>Income</h3>
+<ul id="incomeList"></ul>
+</div>
+
+<div class="expenseSection">
+<h3>Expense</h3>
+<ul id="expenseList"></ul>
+</div>
+
+</div>
+<br><br>
+
+</div>
+
+</div>
+<script>
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+if (!currentUser) {
+    alert("Please login first");
+    window.location.href = "login.html";
+}
+
+// Display user info
+document.getElementById("userName").innerText = currentUser.name;
+document.getElementById("userEmail").innerText = currentUser.email;
+
+// Helper function to update balance and lists
+function updateDashboard() {
+    let balance = 0;
+    const incomeList = document.getElementById("incomeList");
+    const expenseList = document.getElementById("expenseList");
+
+    incomeList.innerHTML = "";
+    expenseList.innerHTML = "";
+
+    currentUser.transactions.forEach((tx, index) => {
+
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+        <p>${tx.date} - ${tx.title} : ₹${tx.amount}</p>
+        <button onclick="deleteTransaction(${index})">Delete</button>
+    `;
+
+    if (tx.type === "income") {
+        incomeList.appendChild(li);
+        balance += Number(tx.amount);
+    } else if (tx.type === "expense") {
+        expenseList.appendChild(li);
+        balance -= Number(tx.amount);
+    }
+
+});
+    document.getElementById("balance").innerText = balance;
+
+    // Update user in localStorage
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const index = users.findIndex(u => u.email === currentUser.email);
+    if (index !== -1) {
+        users[index] = currentUser;
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    }
+}
+
+// Add Income
+function addIncome() {
+    const title = document.getElementById("title").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+    const date = document.getElementById("date").value;
+
+    if (!title || !amount || !date) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    currentUser.transactions.push({
+        type: "income",
+        title: title,
+        amount: Number(amount),
+        date: date
+    });
+
+    // Clear inputs
+    document.getElementById("title").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("date").value = "";
+
+    updateDashboard();
+}
+
+// Add Expense
+function addExpense() {
+    const title = document.getElementById("title").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+    const date = document.getElementById("date").value;
+
+    if (!title || !amount || !date) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    currentUser.transactions.push({
+        type: "expense",
+        title: title,
+        amount: Number(amount),
+        date: date
+    });
+
+    // Clear inputs
+    document.getElementById("title").value = "";
+    document.getElementById("amount").value = "";
+    document.getElementById("date").value = "";
+
+    updateDashboard();
+}
+
+// Logout
+function logout() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "login.html";
+}
+
+// Initialize dashboard on page load
+updateDashboard();
+
+function deleteTransaction(index){
+
+let confirmDelete = confirm("Delete this transaction?");
+
+if(confirmDelete){
+
+currentUser.transactions.splice(index,1);
+
+updateDashboard();
+
+}
+
+}
+</script>
